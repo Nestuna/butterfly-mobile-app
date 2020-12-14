@@ -18,7 +18,7 @@ export const theme = StyleSheet.create({
     },
     title : {
       fontFamily: 'Verdana',
-      fontSize: 25,
+      fontSize: 20,
       textAlign: 'center'
     },
     big_title : {
@@ -33,12 +33,13 @@ export const theme = StyleSheet.create({
       height: windowHeight * 0.1,
       marginTop: '10%' ,
       padding: '5%',
-      fontSize: 20
+      fontSize: 16
     },
     button : {
-      backgroundColor: '#BCBEC8',
+      backgroundColor: '#737580',
       margin: '10%',
-      height: windowHeight * 0.1,
-      justifyContent: 'center'
+      padding: '5%',
+      justifyContent: 'center',
+      alignItems: 'center'
     }
   });
