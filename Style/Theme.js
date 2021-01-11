@@ -31,7 +31,7 @@ export const theme = StyleSheet.create({
       backgroundColor: '#eee',
       width: windowWidth * 0.8,
       height: windowHeight * 0.1,
-      marginTop: '10%' ,
+      margin: '3%' ,
       padding: '5%',
       fontSize: 16
     },

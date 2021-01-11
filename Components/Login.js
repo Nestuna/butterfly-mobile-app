@@ -21,6 +21,7 @@ export default class Login extends Component {
     _goTo = (destination) => {
         this.props.navigation.navigate(destination)
     }
+
     render() {
         return (
             <View style={theme.main_container}>
@@ -41,7 +42,7 @@ export default class Login extends Component {
                     </TextInput> 
                     <TouchableOpacity 
                         style={theme.button}
-                        onPress= {() => this._goTo('main_navigation')}
+                        onPress= {() => this._goTo('conversation')}
                     >
                         <Text h4 style={theme.text}>
                             Se connecter
