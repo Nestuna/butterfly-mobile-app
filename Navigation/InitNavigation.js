@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 
 import Login from '../Components/Login';
+import CreateLogin from '../Components/CreateLogin'
 import ForgotLogin from '../Components/ForgotLogin';
 import Conversation from '../Components/Conversation';
 
@@ -15,11 +16,18 @@ function LoginScreen({navigation}) {
 		<Login navigation = {navigation} />
 	);
 }
+function CreateLoginScreen({navigation}) {
+	return (
+		<CreateLogin navigation= {navigation} />
+	);
+}
+
 function ForgotLoginScreen({navigation}) {
 	return (
 		<ForgotLogin navigation = {navigation} />
 	);
 }
+
 function ConversationScreen({navigation}) {
 	return (
 		<Conversation navigation = {navigation} />
@@ -48,7 +56,30 @@ export default class InitNavigation extends React.Component {
 					options = { 
 						({navigation}) => (
 							{
-								headerShown: false,
+								title: 'Butterfly',
+								headerStyle: {
+									backgroundColor : '#9299A3',
+								},
+								headerTitleAlign: 'center',
+								headerTitleStyle: {
+									fontSize: 30
+								}
+								// headerTransparent: true
+							}
+						)
+					}
+				/>
+				<Stack.Screen 
+					name = 'create_login'
+					component = {CreateLoginScreen}
+					options = { 
+						({navigation}) => (
+							{
+								title: 'Créer un compte',
+								headerStyle: {
+									backgroundColor : '#9299A3',
+								},
+								headerTitleAlign: 'center'
 							}
 						)
 					}
@@ -74,11 +105,12 @@ export default class InitNavigation extends React.Component {
 					options = { 
 						({navigation}) => (
 							{
-								title: null,
+								title: '#456788',
 								headerStyle: {
-									backgroundColor : 'transparent',
+									backgroundColor : '#9299A3',
 								},
-								headerTransparent: true
+								headerTitleAlign: 'center',
+								headerTitleStyle: {fontSize: 14}
 							}
 						)
 					}

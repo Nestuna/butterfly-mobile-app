@@ -10,7 +10,7 @@ export const theme = StyleSheet.create({
       flex: 1,
       backgroundColor: '#9299A3',
       alignItems: 'center',
-      paddingTop: '10%',
+      // paddingTop: '5%',
       width: windowWidth
     },
     text : {
@@ -18,12 +18,10 @@ export const theme = StyleSheet.create({
     },
     title : {
       fontFamily: 'Verdana',
-      fontSize: 20,
       textAlign: 'center'
     },
     big_title : {
       fontFamily: 'Verdana',
-      fontSize: 50,
       textAlign: 'center'
     },
 
@@ -31,7 +29,7 @@ export const theme = StyleSheet.create({
       backgroundColor: '#eee',
       width: windowWidth * 0.8,
       height: windowHeight * 0.1,
-      marginTop: '10%' ,
+      marginTop: '5%' ,
       padding: '5%',
       fontSize: 16
     },

@@ -11,9 +11,6 @@ export default class Conversation extends Component {
     render() {
         return (
             <View style={theme.main_container}>
-                <View style={styles.header}>
-                    <Text style={[theme.text, {textAlign: 'right'}]}>Conv #464654</Text>
-                </View> 
                 <ScrollView style={styles.chat_body}>
                     <Message user={false}/>
                     <Message user={true}/>
