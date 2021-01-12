@@ -36,8 +36,9 @@ export const theme = StyleSheet.create({
     button : {
       backgroundColor: '#737580',
       margin: '10%',
-      padding: '5%',
+      padding: '3%',
       justifyContent: 'center',
-      alignItems: 'center'
+      alignItems: 'center',
+      borderRadius: 5
     }
   });
