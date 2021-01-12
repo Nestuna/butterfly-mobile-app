@@ -7,6 +7,7 @@ import Login from '../Components/Login';
 import CreateLogin from '../Components/CreateLogin'
 import ForgotLogin from '../Components/ForgotLogin';
 import Conversation from '../Components/Conversation';
+import CreateConversation from '../Components/CreateConversation'
 
 
 // NAVIGATION CONNEXION ----------------
@@ -35,6 +36,13 @@ function ConversationScreen({navigation}) {
 }
 
 
+function CreateConversationScreen({navigation}) {
+	return (
+		<CreateConversation navigation = {navigation} />
+	);
+}
+
+
 // STACK ---------------------------------
 const Stack = createStackNavigator();
 export default class InitNavigation extends React.Component {
@@ -44,7 +52,8 @@ export default class InitNavigation extends React.Component {
 				screenOptions = {
 					{
 						headerTintColor: 'white',
-						headerLeftContainerStyle: {paddingLeft: 10, color: 'white'}
+						headerLeftContainerStyle: {paddingLeft: 10, color: 'white'},
+						headerBackTitleVisible: false
 					}
 				}
 				initialRouteName = 'login'
@@ -110,12 +119,25 @@ export default class InitNavigation extends React.Component {
 									backgroundColor : '#9299A3',
 								},
 								headerTitleAlign: 'center',
-								headerTitleStyle: {fontSize: 14}
 							}
 						)
 					}
 				/>
-
+				<Stack.Screen 
+					name = 'create_conversation'
+					component = {CreateConversationScreen}
+					options = { 
+						({navigation}) => (
+							{
+								title: 'Créer une conversation',
+								headerStyle: {
+									backgroundColor : '#9299A3',
+								},
+								headerTitleAlign: 'center',
+							}
+						)
+					}
+				/>
 			</Stack.Navigator>
 		);
     }    

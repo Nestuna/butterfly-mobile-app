@@ -34,6 +34,7 @@ export const theme = StyleSheet.create({
       fontSize: 16
     },
     button : {
+      minWidth: windowWidth * 0.5,
       backgroundColor: '#737580',
       margin: '10%',
       padding: '3%',

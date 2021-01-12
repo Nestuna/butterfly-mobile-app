@@ -30,7 +30,7 @@ export default class Login extends Component {
     _connect = () => {
         checkLogin(this.credentials.login, this.credentials.password).then((response) => {
             if (response) {
-                this._goTo('conversation');
+                this._goTo('create_conversation');
             } else {
                 Alert.alert('Login ou mot de passe incorrect.')
             }
@@ -46,16 +46,14 @@ export default class Login extends Component {
                         style={theme.text_input}
                         placeholder={'Login'}
                         onChangeText={(text) => {this.credentials.login = text;}}
-                    >
-
-                    </TextInput> 
+                    />
                     <TextInput 
                         secureTextEntry={true}
                         style={theme.text_input}
                         placeholder={'Mot de passe'}    
                         onChangeText={(text) => {this.credentials.password = text;}}
-                    >
-                    </TextInput> 
+                    />
+
                     <TouchableOpacity 
                         style={theme.button}
                         onPress= {() => this._connect()}
@@ -64,12 +62,13 @@ export default class Login extends Component {
                             Se connecter
                         </Text>
                     </TouchableOpacity>
-                    <Text h4 
-                        style={[theme.text, {color: '#DDD', textAlign:'center'}]}
-                        onPress={() => this._goTo('create_login')}
-                    >
-                        Créer un compte
-                    </Text>
+
+                        <Text h4 
+                            style={[theme.text, {color: '#DDD', textAlign:'center'}]}
+                            onPress={() => this._goTo('create_login')}
+                        >
+                            Créer un compte
+                        </Text>
                 </View>
             </KeyboardAvoidingView>
         )
