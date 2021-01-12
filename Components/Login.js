@@ -41,7 +41,7 @@ export default class Login extends Component {
                     </TextInput> 
                     <TouchableOpacity 
                         style={theme.button}
-                        onPress= {() => this._goTo('main_navigation')}
+                        onPress= {() => this._goTo('conversation')}
                     >
                         <Text h4 style={theme.text}>
                             Se connecter

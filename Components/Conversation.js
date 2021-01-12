@@ -1,19 +1,30 @@
 import React, { Component } from 'react'
 import { TouchableOpacity } from 'react-native'
 import { View, StyleSheet, Dimensions, KeyboardAvoidingView } from 'react-native'
-import { Text } from 'react-native-elements'
+import { Text, Header } from 'react-native-elements'
 import { ScrollView, TextInput } from 'react-native-gesture-handler'
-import { theme } from '../butterfly-app/Style/Theme'
+import { theme } from '../Style/Theme'
+
+import Message from './Message';
 
 export default class Conversation extends Component {
     render() {
         return (
             <View style={theme.main_container}>
                 <View style={styles.header}>
-    
-                </View>
+                    <Text style={[theme.text, {textAlign: 'right'}]}>Conv #464654</Text>
+                </View> 
                 <ScrollView style={styles.chat_body}>
-
+                    <Message user={false}/>
+                    <Message user={true}/>
+                    <Message user={false}/>
+                    <Message user={true}/>
+                    <Message user={false}/>
+                    <Message user={true}/>
+                    <Message user={false}/>
+                    <Message user={false}/>
+                    <Message user={true}/>
+                    <Message user={true}/>
                 </ScrollView>
                 <KeyboardAvoidingView 
                     style={styles.chat_send}
@@ -33,7 +44,7 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 const styles= StyleSheet.create({
     header: {
-        flex: 0.1,
+        paddingTop: '5%',
         width: windowWidth * 0.9
     },
     chat_body: {

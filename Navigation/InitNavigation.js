@@ -5,7 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import Login from '../Components/Login';
 import ForgotLogin from '../Components/ForgotLogin';
-import MainNavigation from '../Navigation/MainNavigation';
+import Conversation from '../Components/Conversation';
 
 
 // NAVIGATION CONNEXION ----------------
@@ -20,9 +20,9 @@ function ForgotLoginScreen({navigation}) {
 		<ForgotLogin navigation = {navigation} />
 	);
 }
-function MainNavigationScreen({navigation}) {
+function ConversationScreen({navigation}) {
 	return (
-		<MainNavigation navigation = {navigation} />
+		<Conversation navigation = {navigation} />
 	);
 }
 
@@ -69,9 +69,19 @@ export default class InitNavigation extends React.Component {
 					}
 				/>
 				<Stack.Screen 
-					name = 'main_navigation'
-					component = {MainNavigationScreen}
-					options = {({navigation}) => ({headerShown: false})}
+					name = 'conversation'
+					component = {ConversationScreen}
+					options = { 
+						({navigation}) => (
+							{
+								title: null,
+								headerStyle: {
+									backgroundColor : 'transparent',
+								},
+								headerTransparent: true
+							}
+						)
+					}
 				/>
 
 			</Stack.Navigator>
