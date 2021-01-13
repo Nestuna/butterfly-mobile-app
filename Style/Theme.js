@@ -41,5 +41,14 @@ export const theme = StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center',
       borderRadius: 5
+    },
+    conversation : {
+      backgroundColor: '#eee',
+      width: windowWidth * 0.95,
+      height: windowHeight * 0.09,
+      marginTop: '1%' ,
+      padding: '5%',
+      justifyContent : 'center',
+      alignItems : 'flex-start'
     }
   });

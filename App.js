@@ -7,13 +7,17 @@ import 'react-native-gesture-handler';
 import { theme } from './Style/Theme'
 import InitNavigation from './Navigation/InitNavigation';
 import { ThemeConsumer } from 'react-native-elements';
+import Home from './Components/Home.js'
 
 
 export default function App() {
   return (
+    
     <NavigationContainer>
       <InitNavigation/>
     </NavigationContainer>
 
+
+    //<Home/>
   );
 }

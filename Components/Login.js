@@ -2,8 +2,8 @@
 
 import React, { Component } from 'react'
 import { ScrollView } from 'react-native';
-import { 
-    View, StyleSheet, TextInput, Dimensions, TouchableOpacity 
+import {
+    View, StyleSheet, TextInput, Dimensions, TouchableOpacity
 } from 'react-native'
 import { Text } from 'react-native-elements'
 import { theme } from '../Style/Theme'
@@ -41,7 +41,7 @@ export default class Login extends Component {
         return (
             <KeyboardAvoidingView behavior={'padding'} style={theme.main_container}>
                 <View style={styles.body_container}>
-                    <TextInput 
+                    <TextInput
                         style={theme.text_input}
                         placeholder={'Login'}
                         onChangeText={(text) => {this.credentials.login = text;}}

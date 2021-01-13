@@ -8,6 +8,8 @@ import CreateLogin from '../Components/CreateLogin'
 import ForgotLogin from '../Components/ForgotLogin';
 import Conversation from '../Components/Conversation';
 import CreateConversation from '../Components/CreateConversation'
+import Home from '../Components/Home.js';
+
 
 
 // NAVIGATION CONNEXION ----------------
@@ -35,10 +37,14 @@ function ConversationScreen({navigation}) {
 	);
 }
 
-
 function CreateConversationScreen({navigation}) {
 	return (
 		<CreateConversation navigation = {navigation} />
+	);
+}
+function HomeScreen({navigation}) {
+	return (
+		<Home navigation = {navigation} />
 	);
 }
 
@@ -58,11 +64,11 @@ export default class InitNavigation extends React.Component {
 				}
 				initialRouteName = 'login'
 			>
-				<Stack.Screen 
+				<Stack.Screen
 					name = 'login'
 					title = "Login"
 					component = {LoginScreen}
-					options = { 
+					options = {
 						({navigation}) => (
 							{
 								title: 'Butterfly',
@@ -93,10 +99,10 @@ export default class InitNavigation extends React.Component {
 						)
 					}
 				/>
-				<Stack.Screen 
+				<Stack.Screen
 					name = 'forgot_login'
 					component = {ForgotLoginScreen}
-					options = { 
+					options = {
 						({navigation}) => (
 							{
 								title: null,
@@ -138,7 +144,20 @@ export default class InitNavigation extends React.Component {
 						)
 					}
 				/>
+				<Stack.Screen
+					name = 'home'
+					title = "Home"
+					component = {Home}
+					options = {
+						({navigation}) => (
+							{
+								headerShown: false,
+							}
+						)
+					}
+				/>
+
 			</Stack.Navigator>
 		);
-    }    
+    }
 }
