@@ -17,12 +17,12 @@ export const theme = StyleSheet.create({
       color: '#eee'
     },
     title : {
-      fontFamily: 'Verdana',
+      fontFamily: 'normal',
       fontSize: 20,
       textAlign: 'center'
     },
     big_title : {
-      fontFamily: 'Verdana',
+      fontFamily: 'normal',
       fontSize: 50,
       textAlign: 'center'
     },
@@ -41,5 +41,14 @@ export const theme = StyleSheet.create({
       padding: '5%',
       justifyContent: 'center',
       alignItems: 'center'
+    },
+    conversation : {
+      backgroundColor: '#eee',
+      width: windowWidth * 0.95,
+      height: windowHeight * 0.09,
+      marginTop: '1%' ,
+      padding: '5%',
+      justifyContent : 'center',
+      alignItems : 'flex-start'
     }
   });
