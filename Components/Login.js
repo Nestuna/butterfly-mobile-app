@@ -78,6 +78,6 @@ export default class Login extends Component {
 const windowWidth = Dimensions.get('window').width;
 const styles = StyleSheet.create({
     body_container: {
-        flex: 1
+        flex: 1,
     }
 })

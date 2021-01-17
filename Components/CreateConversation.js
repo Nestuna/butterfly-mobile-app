@@ -18,23 +18,25 @@ export default class CreateConversation extends Component {
     }
 
     _createConversation = () => {
-        setConversation(this.inputs);
-        // this._getConversationAccessId().then((id) => this.setState({conversationId : id})); 
+        setConversation(this.inputs).then(access_id => this.setState({conversationId: access_id}));
     }
 
     _displayConversationId = () => {
         if (this.state.conversationId) {
             return (
-                <Text style={theme.text}>
-                    Conversation ID: {this.state.conversationId}
-                </Text>
+                <View style={{padding: '5%'}}>
+                    <Text style={[theme.text, {textAlign: 'center'}]}>
+                        <Text h4 style={theme.text}>Access ID: {'\n'}
+                        {this.state.conversationId}{'\n'}
+                        </Text>
+                        <Text h5 style={theme.text}> 
+                            L'access ID est ce qui permettra à vos interlocuteur de rejoindre la conversation.
+                            Notez-le bien.    
+                        </Text>
+                    </Text>
+                </View>
             );
         }
-    }
-
-
-    _getConversationAccessId = () => {
-
     }
 
     render() {
