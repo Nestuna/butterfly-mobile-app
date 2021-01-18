@@ -42,12 +42,6 @@ function CreateConversationScreen({navigation}) {
 	);
 }
 
-function ConversationScreen({navigation}) {
-	return (
-		<Conversation navigation = {navigation} />
-	);
-}
-
 
 // STACK ---------------------------------
 const Stack = createStackNavigator();
