@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { View, TextInput, TouchableOpacity } from 'react-native'
+import { View, TextInput, TouchableOpacity, Alert, Keyboard } from 'react-native'
 import { Text } from 'react-native-elements'
+import * as SecureStore from 'expo-secure-store';
 
 import { theme } from '../Style/Theme'
 import { setConversation } from '../API/ApiData'
@@ -9,25 +10,39 @@ export default class CreateConversation extends Component {
     constructor(props) {
         super(props);
         this.inputs = {
-            nb_users: '',
+            pseudo: '',
             lifespan: ''        
         }
         this.state = {
-            conversationId: undefined
+            conversationAccessId: undefined
         }
     }
 
     _createConversation = () => {
-        setConversation(this.inputs).then(access_id => this.setState({conversationId: access_id}));
+        Keyboard.dismiss();
+        setConversation(this.inputs)
+            .then(
+                (accessId) =>  {
+                    this.setState({conversationAccessId: accessId})
+                    if (SecureStore.isAvailableAsync()) {
+                        const conversationKey = 'conversation_' + accessId;
+                        SecureStore.setItemAsync(conversationKey, this.inputs.pseudo);
+                        SecureStore.getItemAsync(conversationKey).then((pseudo) => {
+                            if (pseudo === this.state.pseudo) console.error('Error: access Id not stored successfully');
+                        })
+
+                    }
+                }
+            );
     }
 
-    _displayConversationId = () => {
-        if (this.state.conversationId) {
+    _displayconversationAccessId = () => {
+        if (this.state.conversationAccessId) {
             return (
                 <View style={{padding: '5%'}}>
                     <Text style={[theme.text, {textAlign: 'center'}]}>
                         <Text h4 style={theme.text}>Access ID: {'\n'}
-                        {this.state.conversationId}{'\n'}
+                        {this.state.conversationAccessId}{'\n\n'}
                         </Text>
                         <Text h5 style={theme.text}> 
                             L'access ID est ce qui permettra à vos interlocuteur de rejoindre la conversation.
@@ -44,12 +59,13 @@ export default class CreateConversation extends Component {
             <View style={theme.main_container}>
                 <TextInput 
                         style={theme.text_input}
-                        placeholder={'Nombre de participants'}
-                        onChangeText={(text) => {this.inputs.nb_users = text;}}
+                        placeholder={'Mon pseudo'}
+                        onChangeText={(text) => {this.inputs.pseudo = text;}}
                 />
                 <TextInput 
                         style={theme.text_input}
                         placeholder={'Durée de vie (jours)'}
+                        keyboardType= {'numeric'}
                         onChangeText={(text) => {this.inputs.lifespan = text;}}
                 />
                 <TouchableOpacity 
@@ -60,7 +76,7 @@ export default class CreateConversation extends Component {
                         Créer
                     </Text>
                 </TouchableOpacity>
-                {this._displayConversationId()}
+                {this._displayconversationAccessId()}
             </View>
         )
     }

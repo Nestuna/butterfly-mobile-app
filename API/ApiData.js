@@ -21,8 +21,7 @@ export async function setConversation(form) {
        },
        body: JSON.stringify(form)
     })
-<<<<<<< HEAD
-    const json = await response.text();
+    const text = await response.text();
     return text;
 }
 

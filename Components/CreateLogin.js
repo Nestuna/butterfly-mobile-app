@@ -33,7 +33,7 @@ export default class CreateLogin extends Component {
         if (this._storageIsGood()) {
             Alert.alert('Compte crée avec succès. Bienvenue sur Butterfly !');
             setTimeout(() => {
-                this._goTo('conversation');
+                this._goTo('home');
             }, 3000);
         } else {
             this.setState({info_message: 'Une erreur s\'est produite lors de la création du compte. Veuillez réessayer.'})
