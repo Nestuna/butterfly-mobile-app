@@ -23,6 +23,14 @@ export async function setConversation(form) {
     })
     const json = await response.text();
     return json;
+<<<<<<< HEAD
 
     test (return 0);
 }
+=======
+}
+
+function cacaFonction() {
+   return 'booubou';
+}
+>>>>>>> 61dc28d1aab6df8b4998598f60318a6183ea1d35
