@@ -17,11 +17,11 @@ export const theme = StyleSheet.create({
       color: '#eee'
     },
     title : {
-      fontFamily: 'Verdana',
+      fontFamily: 'normal',
       textAlign: 'center'
     },
     big_title : {
-      fontFamily: 'Verdana',
+      fontFamily: 'normal',
       textAlign: 'center'
     },
 

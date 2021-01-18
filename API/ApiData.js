@@ -21,16 +21,8 @@ export async function setConversation(form) {
        },
        body: JSON.stringify(form)
     })
-    const json = await response.text();
-    return json;
 <<<<<<< HEAD
-
-    test (return 0);
-}
-=======
+    const json = await response.text();
+    return text;
 }
 
-function cacaFonction() {
-   return 'booubou';
-}
->>>>>>> 61dc28d1aab6df8b4998598f60318a6183ea1d35

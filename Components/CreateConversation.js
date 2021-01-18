@@ -3,7 +3,7 @@ import { View, TextInput, TouchableOpacity } from 'react-native'
 import { Text } from 'react-native-elements'
 
 import { theme } from '../Style/Theme'
-import { setConversation} from '../API/ApiData'
+import { setConversation } from '../API/ApiData'
 
 export default class CreateConversation extends Component {
     constructor(props) {

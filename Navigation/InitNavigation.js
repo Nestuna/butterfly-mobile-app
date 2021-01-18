@@ -146,12 +146,15 @@ export default class InitNavigation extends React.Component {
 				/>
 				<Stack.Screen
 					name = 'home'
-					title = "Home"
 					component = {Home}
 					options = {
 						({navigation}) => (
 							{
-								headerShown: false,
+								title: 'Accueil',
+								headerStyle: {
+									backgroundColor : '#9299A3',
+								},
+								headerTitleAlign: 'center',
 							}
 						)
 					}
