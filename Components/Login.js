@@ -30,7 +30,7 @@ export default class Login extends Component {
     _connect = () => {
         checkLogin(this.credentials.login, this.credentials.password).then((response) => {
             if (response) {
-                this._goTo('create_conversation');
+                this._goTo('home');
             } else {
                 Alert.alert('Login ou mot de passe incorrect.')
             }
