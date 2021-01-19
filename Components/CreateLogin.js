@@ -29,16 +29,12 @@ export default class CreateLogin extends Component {
 
 
     _createAccount = () => {
+        if (SecureStore.getItemAsync('login', this.credentials.login)) Alert.alert("L'ancien compte va être supprimé")
         this._storeCredentials();
-        if (this._storageIsGood()) {
-            Alert.alert('Compte crée avec succès. Bienvenue sur Butterfly !');
-            setTimeout(() => {
-                this._goTo('home');
-            }, 3000);
-        } else {
-            this.setState({info_message: 'Une erreur s\'est produite lors de la création du compte. Veuillez réessayer.'})
-        }
-
+        Alert.alert("Compte crée avec succès. Bienvenue sur Butterfly !");
+        setTimeout(() => {
+            this._goTo('home');
+        }, 3000);
     }
 
     _storeCredentials = () => {
@@ -48,45 +44,42 @@ export default class CreateLogin extends Component {
         }
     } 
 
-    _storageIsGood = () => {
-        SecureStore.getItemAsync('login').then((login) => {
-            if (login !== this.credentials.login) return false;
-        })
-        SecureStore.getItemAsync('login').then((password) => {
-            if (password !== this.credentials.password) return false;
-        })
-
-        return true;
-    }
-
     render() {
         return (
             <KeyboardAvoidingView behavior={'padding'} style={theme.main_container}>
-            <View style={styles.body_container}>
-                <TextInput 
-                    style={theme.text_input}
-                    placeholder={'Login'}
-                    onChangeText={(text) => {this.credentials.login = text;}}
-                >
+                <View>
+                    <TextInput 
+                            style={theme.text_input}
+                            placeholder={'Login'}
+                            onChangeText={(text) => {this.credentials.login = text;}}
+                        >
 
-                </TextInput> 
-                <TextInput 
-                    secureTextEntry={true}
-                    style={theme.text_input}
-                    placeholder={'Mot de passe'}    
-                    onChangeText={(text) => {this.credentials.password = text;}}
-                >
-                </TextInput> 
-                <TouchableOpacity 
-                    style={theme.button}
-                    onPress= {() => this._createAccount()}
-                >
-                    <Text h4 style={theme.text}>
-                        Créer
+                    </TextInput> 
+                    <TextInput 
+                        secureTextEntry={true}
+                        style={theme.text_input}
+                        placeholder={'Mot de passe'}    
+                        onChangeText={(text) => {this.credentials.password = text;}}
+                    >
+                    </TextInput> 
+                    <TouchableOpacity 
+                        style={theme.button}
+                        onPress= {() => this._createAccount()}
+                    >
+                        <Text h4 style={theme.text}>
+                            Créer
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={styles.text_box}>
+                    <Text style={theme.text}>
+                        Le compte est crée localement. Seul un compte crée sur cet appareil sera accessible. Ne pourra être utilisé qu'un 
+                        seul compte par appareil. 
+                        Si vous voulez utiliser un autre compte que celui crée initialement, le premier compte sera irrémédiablement supprimé,
+                        avec toutes les conversations auquel il a soucscrites. Ceci est fait dans un souci de sécurité et confidentialité optimale.
                     </Text>
-                </TouchableOpacity>
-            </View>
-        </KeyboardAvoidingView>
+                </View>
+            </KeyboardAvoidingView>
         )
     }
 }
@@ -108,6 +101,9 @@ const styles = StyleSheet.create({
         bottom: 0,
         alignItems: 'center',
         justifyContent: 'center'
+    },
+    text_box: {
+        width: windowWidth * 0.9,
     }
 })
 

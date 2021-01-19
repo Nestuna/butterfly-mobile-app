@@ -5,18 +5,20 @@ export default class Message extends Component {
     constructor(props) {
         super(props);
         this.state = {}
+        this.user = '';
     }
 
     render() {
-        const { user } = this.props;
-        const user_style = user ? styles.user_message : styles.dest_message;
+        const { isUser, username, text } = this.props;
+        const user_style = isUser ? styles.user_message : styles.dest_message;
         return (
-            <View style={[styles.message_container, {justifyContent: user ? 'flex-end' : 'flex-start'}]}>
+            <View style={[styles.message_container, {justifyContent: isUser ? 'flex-end' : 'flex-start'}]}>
                 <View style={[styles.message_box, user_style]}>
                     <Text style={[styles.message_text, user_style]}>
-                        Youyou Ma bigote lwoifdoi grjrgjrg igrigr
-                        fgoe dijgodj rogjido rjg od rigj doij grdr gdr
-                        dr gd rg drg drg
+                        <Text style={[styles.message_text, user_style, {fontStyle: 'italic', textTransform: 'capitalize'}]}>
+                            {username} {'\n'}
+                        </Text>
+                        {text}
                     </Text>
                 </View>
             </View>

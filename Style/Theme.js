@@ -14,7 +14,8 @@ export const theme = StyleSheet.create({
       width: windowWidth
     },
     text : {
-      color: '#eee'
+      color: '#eee',
+      textAlign: 'justify'
     },
     title : {
       fontFamily: 'normal',

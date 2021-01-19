@@ -2,33 +2,72 @@ import React, { Component } from 'react'
 import { TouchableOpacity } from 'react-native'
 import { View, StyleSheet, Dimensions, KeyboardAvoidingView } from 'react-native'
 import { Text, Header } from 'react-native-elements'
-import { ScrollView, TextInput } from 'react-native-gesture-handler'
+import { FlatList, ScrollView, TextInput } from 'react-native-gesture-handler'
+import { getMessagesFromApi, postMessageToApi } from '../API/ApiData'
 import { theme } from '../Style/Theme'
 
 import Message from './Message';
 
 export default class Conversation extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            messages: [],
+            access_id: 'e2a4c957f97f450c9d9276efa4be1b72'
+        }
+
+        this.messageToSend = {
+            username : 'Lala',
+            text : '',
+            access_id: this.state.access_id
+        }
+    
+    }
+
+    componentDidMount() {
+        this._getMessages();
+    }
+
+    _getMessages = () => {
+        getMessagesFromApi(this.state.access_id).then((data) => {
+            console.log(data);
+            this.setState({messages: data});
+        });
+    }
+    _sendMessage = () => {
+        postMessageToApi(this.messageToSend);
+        this._getMessages();
+    }
+
+
     render() {
         return (
             <View style={theme.main_container}>
-                <ScrollView style={styles.chat_body}>
-                    <Message user={false}/>
-                    <Message user={true}/>
-                    <Message user={false}/>
-                    <Message user={true}/>
-                    <Message user={false}/>
-                    <Message user={true}/>
-                    <Message user={false}/>
-                    <Message user={false}/>
-                    <Message user={true}/>
-                    <Message user={true}/>
-                </ScrollView>
+                <View style={styles.chat_body}>
+                    <FlatList
+                        data={this.state.messages}
+                        keyExtractor={(item) => item.id.toString()}
+                        renderItem = {({item}) => {
+                            return(
+                              <Message 
+                                isUser={this.messageToSend.username === item.username} 
+                                username={item.username} 
+                                text={item.text} />
+                            );
+                          }
+                        }
+                    
+                    />
+                </View>
                 <KeyboardAvoidingView 
                     style={styles.chat_send}
                     behavior={Platform.OS === "ios" ? "padding" : "height"}    
                 >
-                    <TextInput style= {styles.message_input} multiline={true} />
-                    <TouchableOpacity style={styles.send_button}>
+                    <TextInput style= {styles.message_input} 
+                        multiline={true} 
+                        onChangeText={text => this.messageToSend.text = text} 
+                    />
+                    <TouchableOpacity style={styles.send_button} onPress= {() => this._sendMessage()}>
                         <Text style={theme.text}>Envoyer</Text>
                     </TouchableOpacity>
                 </KeyboardAvoidingView>
