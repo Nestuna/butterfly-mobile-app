@@ -16,7 +16,6 @@ export default class ConversationItem extends Component {
       <View styles={styles.header_container}>
         <View style={theme.conversation}>
           <Text style={styles.text_id}>ID : {conversation.accessId}</Text>
-          <Text style={styles.text_message} numberOfLines={2}>{conversation.sendBy} : {conversation.lastMessage}</Text>
         </View>
       </View>
     )

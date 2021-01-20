@@ -46,14 +46,14 @@ export default class Login extends Component {
                         placeholder={'Login'}
                         onChangeText={(text) => {this.credentials.login = text;}}
                     />
-                    <TextInput 
+                    <TextInput
                         secureTextEntry={true}
                         style={theme.text_input}
-                        placeholder={'Mot de passe'}    
+                        placeholder={'Mot de passe'}
                         onChangeText={(text) => {this.credentials.password = text;}}
                     />
 
-                    <TouchableOpacity 
+                    <TouchableOpacity
                         style={theme.button}
                         onPress= {() => this._connect()}
                     >
@@ -62,7 +62,7 @@ export default class Login extends Component {
                         </Text>
                     </TouchableOpacity>
 
-                        <Text h4 
+                        <Text h4
                             style={[theme.text, {color: '#DDD', textAlign:'center'}]}
                             onPress={() => this._goTo('create_login')}
                         >

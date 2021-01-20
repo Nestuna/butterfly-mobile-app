@@ -9,6 +9,7 @@ import ForgotLogin from '../Components/ForgotLogin';
 import Conversation from '../Components/Conversation';
 import CreateConversation from '../Components/CreateConversation'
 import Home from '../Components/Home.js';
+import JoinConversation from '../Components/JoinConversation.js'
 
 
 
@@ -42,9 +43,16 @@ function CreateConversationScreen({navigation}) {
 		<CreateConversation navigation = {navigation} />
 	);
 }
+
 function HomeScreen({navigation}) {
 	return (
 		<Home navigation = {navigation} />
+	);
+}
+
+function JoinConversationScreen({navigation}) {
+	return (
+			<JoinConversation navigation = {navigation} />
 	);
 }
 
@@ -84,10 +92,10 @@ export default class InitNavigation extends React.Component {
 						)
 					}
 				/>
-				<Stack.Screen 
+				<Stack.Screen
 					name = 'create_login'
 					component = {CreateLoginScreen}
-					options = { 
+					options = {
 						({navigation}) => (
 							{
 								title: 'Créer un compte',
@@ -114,10 +122,10 @@ export default class InitNavigation extends React.Component {
 						)
 					}
 				/>
-				<Stack.Screen 
+				<Stack.Screen
 					name = 'conversation'
 					component = {ConversationScreen}
-					options = { 
+					options = {
 						({navigation}) => (
 							{
 								title: '#456788',
@@ -129,10 +137,10 @@ export default class InitNavigation extends React.Component {
 						)
 					}
 				/>
-				<Stack.Screen 
+				<Stack.Screen
 					name = 'create_conversation'
 					component = {CreateConversationScreen}
-					options = { 
+					options = {
 						({navigation}) => (
 							{
 								title: 'Créer une conversation',
@@ -155,6 +163,21 @@ export default class InitNavigation extends React.Component {
 									backgroundColor : '#9299A3',
 								},
 								headerTitleAlign: 'center',
+							}
+						)
+					}
+				/>
+				<Stack.Screen
+					name = 'join_conversation'
+					component = {JoinConversationScreen}
+					options = {
+						({navigation}) => (
+							{
+								title: 'Rejoindre une conversation',
+								headerStyle: {
+								backgroundColor : '#9299A3',
+							},
+							headerTitleAlign: 'center',
 							}
 						)
 					}
