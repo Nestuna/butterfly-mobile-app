@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { View, TextInput, TouchableOpacity, Alert, Keyboard } from 'react-native'
+import { View, TextInput, TouchableOpacity, Alert, Keyboard , Clipboard} from 'react-native'
+// import Clipboard from '@react-native-community/clipboard';
 import { Text } from 'react-native-elements'
 import * as SecureStore from 'expo-secure-store';
 
@@ -18,20 +19,19 @@ export default class CreateConversation extends Component {
         }
     }
 
+
+    _copyToClipboard = (text) => {
+
+        Alert.alert('ID copié')
+    };
+
     _createConversation = () => {
         Keyboard.dismiss();
         setConversation(this.inputs)
-            .then(
-                (accessId) =>  {
+            .then((accessId) =>  {
                     this.setState({conversationAccessId: accessId})
-                    if (SecureStore.isAvailableAsync()) {
-                        const conversationKey = 'conversation_' + accessId;
-                        SecureStore.setItemAsync(conversationKey, this.inputs.pseudo);
-                        SecureStore.getItemAsync(conversationKey).then((pseudo) => {
-                            if (pseudo === this.state.pseudo) console.error('Error: access Id not stored successfully');
-                        })
-
-                    }
+                    Clipboard.setString(accessId);
+                    console.log(this.state.conversationAccessId);
                 }
             );
     }
@@ -41,12 +41,15 @@ export default class CreateConversation extends Component {
             return (
                 <View style={{padding: '5%'}}>
                     <Text style={[theme.text, {textAlign: 'center'}]}>
-                        <Text h4 style={theme.text}>Access ID: {'\n'}
-                        {this.state.conversationAccessId}{'\n\n'}
+                        <Text h4 style={theme.text} >
+                            Access ID: {'\n'}
+                            <Text>
+                                {this.state.conversationAccessId}{'\n\n'}
+                            </Text>
                         </Text>
-                        <Text h5 style={theme.text}> 
+                        <Text h5 style={theme.text}>
                             L'access ID est ce qui permettra à vos interlocuteur de rejoindre la conversation.
-                            Notez-le bien.    
+                            Notez-le bien.
                         </Text>
                     </Text>
                 </View>
@@ -57,12 +60,7 @@ export default class CreateConversation extends Component {
     render() {
         return (
             <View style={theme.main_container}>
-                <TextInput 
-                        style={theme.text_input}
-                        placeholder={'Mon pseudo'}
-                        onChangeText={(text) => {this.inputs.pseudo = text;}}
-                />
-                <TextInput 
+                <TextInput
                         style={theme.text_input}
                         placeholder={'Durée de vie (jours)'}
                         keyboardType= {'numeric'}
