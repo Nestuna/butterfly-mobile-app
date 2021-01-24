@@ -7,62 +7,76 @@ import {
 } from 'react-native'
 import { Text } from 'react-native-elements'
 import { theme } from '../Style/Theme'
+import * as SecureStore from 'expo-secure-store';
+import { KeyboardAvoidingView } from 'react-native';
+import { Alert } from 'react-native';
+
+import { checkLogin } from '../API/localStorage'
 
 export default class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {}
-        this.inputs = {
+        this.credentials = {
             login: '',
             password: '',
         }
     }
 
-    _goTo = (destination) => {
-        this.props.navigation.navigate(destination)
+    _goTo = (destination, params) => {
+        this.props.navigation.navigate(destination, params)
     }
+
+    _connect = () => {
+        checkLogin(this.credentials.login, this.credentials.password).then((response) => {
+            if (response) {
+                this._goTo('home');
+            } else {
+                Alert.alert('Login ou mot de passe incorrect.')
+            }
+        })
+    }
+
     render() {
         return (
-            <View style={theme.main_container}>
-                <View style={styles.header_container}>
-                    <Text style={[theme.text, theme.big_title]}>Butterfly</Text>
-                </View>
+            <KeyboardAvoidingView behavior={'padding'} style={theme.main_container}>
                 <View style={styles.body_container}>
                     <TextInput
                         style={theme.text_input}
                         placeholder={'Login'}
-                    >
-
-                    </TextInput>
+                        onChangeText={(text) => {this.credentials.login = text;}}
+                    />
                     <TextInput
+                        secureTextEntry={true}
                         style={theme.text_input}
                         placeholder={'Mot de passe'}
-                    >
-                    </TextInput>
+                        onChangeText={(text) => {this.credentials.password = text;}}
+                    />
+
                     <TouchableOpacity
                         style={theme.button}
-                        onPress= {() => this._goTo('home')}
+                        onPress= {() => this._connect()}
                     >
                         <Text h4 style={theme.text}>
                             Se connecter
                         </Text>
                     </TouchableOpacity>
+
+                        <Text h4
+                            style={[theme.text, {color: '#DDD', textAlign:'center'}]}
+                            onPress={() => this._goTo('create_login')}
+                        >
+                            Créer un compte
+                        </Text>
                 </View>
-            </View>
+            </KeyboardAvoidingView>
         )
     }
 }
 
 const windowWidth = Dimensions.get('window').width;
 const styles = StyleSheet.create({
-    header_container : {
-        flex: 1,
-        // borderColor: '#000',
-        // borderWidth: 3
-    },
     body_container: {
-        flex: 5,
-        // borderColor: '#000',
-        // borderWidth: 3
+        flex: 1,
     }
 })

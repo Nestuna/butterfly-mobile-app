@@ -4,10 +4,13 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 
 import Login from '../Components/Login';
+import CreateLogin from '../Components/CreateLogin'
 import ForgotLogin from '../Components/ForgotLogin';
-import MainNavigation from '../Navigation/MainNavigation';
+import Conversation from '../Components/Conversation';
+import CreateConversation from '../Components/CreateConversation'
 import Home from '../Components/Home.js';
-import ConversationItem from '../Components/ConversationItem.js'
+import JoinConversation from '../Components/JoinConversation.js'
+
 
 
 // NAVIGATION CONNEXION ----------------
@@ -17,19 +20,39 @@ function LoginScreen({navigation}) {
 		<Login navigation = {navigation} />
 	);
 }
+function CreateLoginScreen({navigation}) {
+	return (
+		<CreateLogin navigation= {navigation} />
+	);
+}
+
 function ForgotLoginScreen({navigation}) {
 	return (
 		<ForgotLogin navigation = {navigation} />
 	);
 }
-function MainNavigationScreen({navigation}) {
+
+function ConversationScreen({navigation}) {
 	return (
-		<MainNavigation navigation = {navigation} />
+		<Conversation navigation = {navigation} />
 	);
 }
+
+function CreateConversationScreen({navigation}) {
+	return (
+		<CreateConversation navigation = {navigation} />
+	);
+}
+
 function HomeScreen({navigation}) {
 	return (
 		<Home navigation = {navigation} />
+	);
+}
+
+function JoinConversationScreen({navigation}) {
+	return (
+			<JoinConversation navigation = {navigation} />
 	);
 }
 
@@ -43,7 +66,8 @@ export default class InitNavigation extends React.Component {
 				screenOptions = {
 					{
 						headerTintColor: 'white',
-						headerLeftContainerStyle: {paddingLeft: 10, color: 'white'}
+						headerLeftContainerStyle: {paddingLeft: 10, color: 'white'},
+						headerBackTitleVisible: false
 					}
 				}
 				initialRouteName = 'login'
@@ -55,7 +79,30 @@ export default class InitNavigation extends React.Component {
 					options = {
 						({navigation}) => (
 							{
-								headerShown: false,
+								title: 'Butterfly',
+								headerStyle: {
+									backgroundColor : '#9299A3',
+								},
+								headerTitleAlign: 'center',
+								headerTitleStyle: {
+									fontSize: 30
+								}
+								// headerTransparent: true
+							}
+						)
+					}
+				/>
+				<Stack.Screen
+					name = 'create_login'
+					component = {CreateLoginScreen}
+					options = {
+						({navigation}) => (
+							{
+								title: 'Créer un compte',
+								headerStyle: {
+									backgroundColor : '#9299A3',
+								},
+								headerTitleAlign: 'center'
 							}
 						)
 					}
@@ -76,18 +123,61 @@ export default class InitNavigation extends React.Component {
 					}
 				/>
 				<Stack.Screen
-					name = 'main_navigation'
-					component = {MainNavigationScreen}
-					options = {({navigation}) => ({headerShown: false})}
+					name = 'conversation'
+					component = {ConversationScreen}
+					options = {
+						({navigation}) => (
+							{
+								title: '#456788',
+								headerStyle: {
+									backgroundColor : '#9299A3',
+								},
+								headerTitleAlign: 'center',
+							}
+						)
+					}
+				/>
+				<Stack.Screen
+					name = 'create_conversation'
+					component = {CreateConversationScreen}
+					options = {
+						({navigation}) => (
+							{
+								title: 'Créer une conversation',
+								headerStyle: {
+									backgroundColor : '#9299A3',
+								},
+								headerTitleAlign: 'center',
+							}
+						)
+					}
 				/>
 				<Stack.Screen
 					name = 'home'
-					title = "Home"
 					component = {Home}
 					options = {
 						({navigation}) => (
 							{
-								headerShown: false,
+								title: 'Accueil',
+								headerStyle: {
+									backgroundColor : '#9299A3',
+								},
+								headerTitleAlign: 'center',
+							}
+						)
+					}
+				/>
+				<Stack.Screen
+					name = 'join_conversation'
+					component = {JoinConversationScreen}
+					options = {
+						({navigation}) => (
+							{
+								title: 'Rejoindre une conversation',
+								headerStyle: {
+								backgroundColor : '#9299A3',
+							},
+							headerTitleAlign: 'center',
 							}
 						)
 					}
