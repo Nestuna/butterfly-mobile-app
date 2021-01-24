@@ -1,21 +1,23 @@
 // ./Components/CreateLogin
 
 import React, { Component } from 'react'
-import { ScrollView } from 'react-native';
+import { Keyboard, ScrollView } from 'react-native';
 import { 
-    View, StyleSheet, TextInput, Dimensions, TouchableOpacity, Alert 
+    View, StyleSheet, TextInput, Dimensions, TouchableOpacity, Alert
 } from 'react-native'
 import { Text } from 'react-native-elements'
 import { theme } from '../Style/Theme'
 import * as SecureStore from 'expo-secure-store';
 import { KeyboardAvoidingView } from 'react-native';
+import { addUser } from '../API/ApiData'
 
 export default class CreateLogin extends Component {
     constructor(props) {
         super(props);
         this.credentials = {
-            'login': '',
-            'password': ''
+            username: '',
+            password: '',
+            email: ''
         }
         this.state = {
             info_message: '',
@@ -28,18 +30,29 @@ export default class CreateLogin extends Component {
     }
 
 
-    _createAccount = () => {
-        if (SecureStore.getItemAsync('login', this.credentials.login)) Alert.alert("L'ancien compte va être supprimé")
-        this._storeCredentials();
-        Alert.alert("Compte crée avec succès. Bienvenue sur Butterfly !");
-        setTimeout(() => {
-            this._goTo('home');
-        }, 3000);
+        _createAccount () {
+            Keyboard.dismiss();
+            if (this.credentials.username === '' || this.credentials.password === '') {
+                Alert.alert('Veuillez remplir les champs.')
+            } else {
+                addUser(this.credentials).then((response) => {
+                    if (!response) {
+                        Alert.alert("Nom d'utilisateur déjà utilisé");
+                        return;
+                    }
+                    Alert.alert("Compte crée avec succès. Bienvenue sur Butterfly !");
+                    this._storeCredentials();
+                    setTimeout(() => {
+                        this._goTo('home');
+                    }, 2000);
+                })
+            }
+
     }
 
     _storeCredentials = () => {
         if (SecureStore.isAvailableAsync()) {
-            SecureStore.setItemAsync('login', this.credentials.login)
+            SecureStore.setItemAsync('login', this.credentials.username)
             SecureStore.setItemAsync('password', this.credentials.password)
         }
     } 
@@ -51,11 +64,11 @@ export default class CreateLogin extends Component {
                     <TextInput 
                             style={theme.text_input}
                             placeholder={'Login'}
-                            onChangeText={(text) => {this.credentials.login = text;}}
+                            onChangeText={(text) => {this.credentials.username = text; this.credentials.email = text + '@mail.com'}}
                         >
 
                     </TextInput> 
-                    <TextInput 
+                    <TextInput
                         secureTextEntry={true}
                         style={theme.text_input}
                         placeholder={'Mot de passe'}    

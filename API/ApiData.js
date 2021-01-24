@@ -1,5 +1,20 @@
 const url = 'http://172.18.0.3:8000/api/'
 
+export async function addUser(form) {
+   const response = await fetch(url + "login/", {
+      method: 'POST',
+      headers:{
+         'Accept': 'application/json',
+         'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(form)
+   })
+   if (response.status >= 400) {
+      return false;
+   }
+   return true;
+}
+
 export async function getConversation(access_id) {
    const response = await fetch(url + `conversation/?access_id=${access_id}`, {
       method: 'GET',
@@ -66,3 +81,4 @@ export async function postMessageToApi(form) {
    const text = await response.text();
    return text;
 }
+
