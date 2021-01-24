@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
+import React, { Component , useState} from 'react'
 import { TouchableOpacity } from 'react-native'
-import { View, StyleSheet, Dimensions, KeyboardAvoidingView } from 'react-native'
+import { View, StyleSheet, Dimensions, KeyboardAvoidingView, Modal, Alert } from 'react-native'
 import { Text, Header } from 'react-native-elements'
 import { FlatList, ScrollView, TextInput } from 'react-native-gesture-handler'
-import { getMessagesFromApi, postMessageToApi } from '../API/ApiData'
+import { getMessagesFromApi, postMessageToApi, deleteConversation } from '../API/ApiData'
 import { theme } from '../Style/Theme'
 
 import Message from './Message';
@@ -12,26 +12,36 @@ export default class Conversation extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            conversationIsAlive: true,
+            admin : undefined,
             messages: [],
-            access_id: 'e2a4c957f97f450c9d9276efa4be1b72'
+            access_id: '02ddfdb22984498d838d645f07ce4e9f',
+            onDelete: false
         }
-
         this.messageToSend = {
             username : 'Lala',
             text : '',
             access_id: this.state.access_id
         }
-    
+        this.isAdmin = false
+
     }
 
     componentDidMount() {
         this._getMessages();
     }
 
+    _goTo = (destination, params) => {
+        this.props.navigation.navigate(destination, params)
+    }
+
     _getMessages = () => {
         getMessagesFromApi(this.state.access_id).then((data) => {
-            console.log(data);
-            this.setState({messages: data});
+            if (data) {
+                console.log(data);
+                this.setState({admin: data.creator_pseudo, messages: data.messages});
+            }
+            else { this.setState({ conversationIsAlive: false }); }
         });
     }
     _sendMessage = () => {
@@ -39,29 +49,96 @@ export default class Conversation extends Component {
         this._getMessages();
     }
 
+    _displayDeleteButton = () => {
+        if (this.messageToSend.username === this.state.admin) {
+            return (
+                <TouchableOpacity
+                    style = {styles.send_button}
+                    onPress = {() => this.setState({onDelete: true})}
+                >
+                    <Text style={theme.text}>Supprimer la conversation</Text>
+                </TouchableOpacity>
+            )
+        }
+    }
+
+
+    _warningModal = () => {
+        if (this.state.onDelete) {
+            return (
+                <View style = {styles.centeredView}>
+                    <Modal
+                        visible={this.state.onDelete}
+                        transparent={true}
+                    >
+                        <View style = {styles.centeredView}>
+                            <View style = {styles.modalView}>
+                                <Text style={theme.text}>
+                                    La conversation va être supprimé définitivement pour vous, et ses participants.
+                                    Confirmez-vous ? {'\n'}{'\n'}
+                                </Text>
+                                <TouchableOpacity onPress={() => this._deleteConversation()}>
+                                    <Text h4 style= {theme.text}>
+                                        Oui{'\n'}
+                                    </Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={() => this.setState({onDelete: false})}>
+                                    <Text h4 style={theme.text}>
+                                        Non
+                                    </Text>
+                                </TouchableOpacity>
+
+                            </View>
+                        </View>
+                    </Modal>
+                </View>
+            )
+        }
+
+    }
+
+    _deleteConversation = () => {
+        deleteConversation({access_id: this.state.access_id}).then(() => {
+            Alert.alert("Compte supprimé");
+            this.setState({onDelete: false})
+            setTimeout(() => {
+                this._goTo('home');
+            }, 2000);
+        })
+    }
+    _display = () => {
+        if (this.state.conversationIsAlive) {
+            return (
+                <FlatList
+                data={this.state.messages}
+                keyExtractor={(item) => item.id.toString()}
+                renderItem = {({item}) => {
+                    return(
+                      <Message
+                        isUser={this.messageToSend.username === item.username}
+                        username={item.username} 
+                        text={item.text} />
+                    );
+                  }
+                }
+            />
+            )
+        } else {
+            return (<Text h4 style={{textAlign: 'center'}}> La conversation est expirée ou supprimée par son créateur.</Text>)
+        }
+    }
 
     render() {
         return (
             <View style={theme.main_container}>
+                <View>{this._displayDeleteButton()}</View>
+                {this._warningModal()}
                 <View style={styles.chat_body}>
-                    <FlatList
-                        data={this.state.messages}
-                        keyExtractor={(item) => item.id.toString()}
-                        renderItem = {({item}) => {
-                            return(
-                              <Message 
-                                isUser={this.messageToSend.username === item.username} 
-                                username={item.username} 
-                                text={item.text} />
-                            );
-                          }
-                        }
-                    
-                    />
+                    {this._display()}
                 </View>
-                <KeyboardAvoidingView 
+                <KeyboardAvoidingView
                     style={styles.chat_send}
-                    behavior={Platform.OS === "ios" ? "padding" : "height"}    
+                    behavior={Platform.OS === "ios" ? "padding" : "height"}
                 >
                     <TextInput style= {styles.message_input} 
                         multiline={true} 
@@ -76,8 +153,8 @@ export default class Conversation extends Component {
     }
 }
 
-const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
+const windowWidth = Dimensions.get('window').width;
 const styles= StyleSheet.create({
     header: {
         paddingTop: '5%',
@@ -115,5 +192,24 @@ const styles= StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 3
-    }
+    },
+    centeredView: {
+        justifyContent: "center",
+        alignItems: "center",
+      },
+    modalView: {
+        margin: 20,
+        backgroundColor: "#535360",
+        borderRadius: 20,
+        padding: 35,
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5
+        },
 })

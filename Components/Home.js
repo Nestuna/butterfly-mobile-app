@@ -56,19 +56,20 @@ const styles = StyleSheet.create({
     },
     body_container: {
         flex: 11,
-        padding : "3%"
+        paddingHorizontal : "3%"
         // borderColor: '#000',
         // borderWidth: 3
     },
     bottom_container: {
+      flex: 1,
       flexDirection: "row",
-      bottom : 10
+      margin: '1%',
     },
     button : {
       minWidth: windowWidth * 0.3,
       backgroundColor: '#737580',
       margin: '1%',
-      padding: '3%',
+      padding: '1%',
       justifyContent: 'center',
       alignItems: 'center',
       borderRadius: 3

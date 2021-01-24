@@ -27,16 +27,17 @@ export default class Message extends Component {
 }
 
 const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
+
 const styles = StyleSheet.create({
     message_container: {
         flexDirection: 'row',
-        
     },
     message_box: {
         flex: 0.7,
         margin: '3%',
         padding: '3%',
-        borderRadius: 15,
+        borderRadius: 15
     }
     ,
     message_text: {

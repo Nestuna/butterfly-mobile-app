@@ -1,4 +1,4 @@
-const url = 'http://127.0.0.1:8000/api/'
+const url = 'http://172.18.0.3:8000/api/'
 
 export async function getConversation(access_id) {
    const response = await fetch(url + `conversation/?access_id=${access_id}`, {
@@ -25,6 +25,20 @@ export async function setConversation(form) {
     return text;
 }
 
+export async function deleteConversation(access_id) {
+   const response = await fetch(url + "conversation/", {
+      method: 'DELETE',
+      headers:{
+         'Accept': 'application/json',
+         'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(access_id)
+   })
+   const text = await response.text();
+   return text;
+}
+
+
 export async function getMessagesFromApi(access_id) {
    const response = await fetch(url + "conversation/message/?access_id=" + access_id, {
       method: 'GET',
@@ -33,6 +47,9 @@ export async function getMessagesFromApi(access_id) {
          'Content-Type': 'application/json',
       },
    })
+   if (response.status == 400) {
+      return undefined
+   }
    const json = await response.json();
    return json;
 }
