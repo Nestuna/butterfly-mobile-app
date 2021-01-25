@@ -17,7 +17,5 @@ export default function App() {
       <InitNavigation/>
     </NavigationContainer>
 
-
-    //<Home/>
   );
 }

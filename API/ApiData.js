@@ -1,5 +1,4 @@
 import { IP } from './IP.json'
-
 const url = IP + '/api/'
 
 export async function getConversation(access_id) {
