@@ -91,3 +91,18 @@ export async function postMessageToApi(form) {
    const text = await response.text();
    return text;
 }
+
+export async function addUser(form) {
+   const response = await fetch(url + "login/", {
+      method: 'POST',
+      headers:{
+         'Accept': 'application/json',
+         'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(form)
+   })
+   if (response.status >= 400) {
+      return false;
+   }
+   return true;
+}

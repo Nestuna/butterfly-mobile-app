@@ -6,7 +6,3 @@ export async function checkLogin(loginInput, passwordInput) {
     console.log('Login :', login,'; Password :', password)
     return (loginInput === login && passwordInput === password);
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> vincent-branch

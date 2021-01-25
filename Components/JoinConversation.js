@@ -20,9 +20,10 @@ export default class JoinConversation extends Component {
       SecureStore.getItemAsync('login').then(
         (pseudo) => {
           putConversation(this.inputs)
+          this.props.navigation.navigate(destination, params)
         }
       )
-        this.props.navigation.navigate(destination, params)
+
     }
 
     render() {

@@ -15,7 +15,7 @@ export default class Conversation extends Component {
             conversationIsAlive: true,
             admin : undefined,
             messages: [],
-            access_id: '',
+            accessId: '',
             onDelete: false
         }
 
@@ -40,7 +40,7 @@ export default class Conversation extends Component {
     }
 
     _getMessages = () => {
-        getMessagesFromApi(this.state.access_id).then((data) => {
+        getMessagesFromApi(this.state.accessId).then((data) => {
             if (data) {
                 console.log(data);
                 this.setState({admin: data.creator_pseudo, messages: data.messages});
@@ -101,7 +101,7 @@ export default class Conversation extends Component {
     }
 
     _deleteConversation = () => {
-        deleteConversation({access_id: this.state.access_id}).then(() => {
+        deleteConversation({accessId: this.state.accessId}).then(() => {
             Alert.alert("Compte supprimé");
             this.setState({onDelete: false})
             setTimeout(() => {

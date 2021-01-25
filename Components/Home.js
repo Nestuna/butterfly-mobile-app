@@ -23,14 +23,14 @@ export default class Home extends Component{
   }
 
   componentDidMount() {
-      this._getConversation();
+      this._getConversation().then(console.log(this.state.conversations));
   }
 
-  _getConversation = () => {
+  _getConversation = async () => {
       SecureStore.getItemAsync('login')
-        .then( (pseudo) => {
-          this.state.conversations = getConversationList(pseudo)
-          console.log(this.states.conversations)
+        .then( (pseudo) => { getConversationList(pseudo).then( (data) => {
+          this.setState({conversations : data}, console.log(this.state.conversations))
+        })
       }
     )
   }
