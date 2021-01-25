@@ -1,4 +1,4 @@
-const url = 'http://172.18.0.3:8000/api/'
+const url = 'http://192.168.1.6:8000/api/'
 
 export async function getConversation(access_id) {
    const response = await fetch(url + `conversation/?access_id=${access_id}`, {

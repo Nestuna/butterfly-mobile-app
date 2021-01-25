@@ -16,7 +16,8 @@ export default class Conversation extends Component {
             admin : undefined,
             messages: [],
             accessId: '',
-            onDelete: false
+            onDelete: false,
+            username: ''
         }
 
         this.messageToSend = {
@@ -28,9 +29,15 @@ export default class Conversation extends Component {
     }
 
     componentDidMount() {
-      this.setState({accessId: this.props.accessId},
+      this.setState({accessId: this.props.accessId, username: this.props.username},
           () => {this._getMessages();
-                  this.messageToSend.accessId = this.props.accessId;
+                  this.messageToSend.accessId = this.props.accessId
+                  this.messageToSend.username = this.state.username
+
+                  setTimeout(() => {
+                      this.componentDidMount();
+                  }, 1000);
+                  
       console.log(this.state);
       })
     }
@@ -102,13 +109,14 @@ export default class Conversation extends Component {
 
     _deleteConversation = () => {
         deleteConversation({accessId: this.state.accessId}).then(() => {
-            Alert.alert("Compte supprimé");
+            Alert.alert("Conversation supprimé");
             this.setState({onDelete: false})
             setTimeout(() => {
                 this._goTo('home');
             }, 2000);
         })
     }
+
     _display = () => {
         if (this.state.conversationIsAlive) {
             return (

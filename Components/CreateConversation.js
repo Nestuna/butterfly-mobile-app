@@ -40,8 +40,8 @@ export default class CreateConversation extends Component {
                     //     setTimeout(() => {
                     //         this._goTo('home', {'refresh': true});
                     //     }, 3000);
-                    // }
-                );
+                     }
+                )
           }
         )
 

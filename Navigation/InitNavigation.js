@@ -33,10 +33,11 @@ function ForgotLoginScreen({navigation}) {
 }
 
 function ConversationScreen({route, navigation}) {
-	const { accessId } = route.params
+	const { accessId, username } = route.params
 	return (
 		<Conversation navigation = {navigation}
-		 							accessId = {accessId}	/>
+		 							accessId = {accessId}
+									username = {username}/>
 	);
 }
 
@@ -130,7 +131,7 @@ export default class InitNavigation extends React.Component {
 					options = {
 						({navigation}) => (
 							{
-								title: '#456788',
+								title: 'Conversation',
 								headerStyle: {
 									backgroundColor : '#9299A3',
 								},
@@ -156,7 +157,7 @@ export default class InitNavigation extends React.Component {
 				/>
 				<Stack.Screen
 					name = 'home'
-					component = {Home}
+					component = {HomeScreen}
 					options = {
 						({navigation}) => (
 							{

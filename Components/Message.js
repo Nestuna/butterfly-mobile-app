@@ -10,6 +10,7 @@ export default class Message extends Component {
 
     render() {
         const { isUser, username, text } = this.props;
+        console.log(this.user);
         const user_style = isUser ? styles.user_message : styles.dest_message;
         return (
             <View style={[styles.message_container, {justifyContent: isUser ? 'flex-end' : 'flex-start'}]}>

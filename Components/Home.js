@@ -18,18 +18,22 @@ export default class Home extends Component{
       }
 
       this.state = {
+          username : '',
           conversations: []
       }
   }
 
   componentDidMount() {
       this._getConversation().then(console.log(this.state.conversations));
+      setTimeout(() => {
+          this.componentDidMount();
+      }, 1000);
   }
 
   _getConversation = async () => {
       SecureStore.getItemAsync('login')
         .then( (pseudo) => { getConversationList(pseudo).then( (data) => {
-          this.setState({conversations : data}, console.log(this.state.conversations))
+          this.setState({username: pseudo, conversations : data}, console.log(this.state.conversations))
         })
       }
     )
@@ -48,7 +52,7 @@ export default class Home extends Component{
             keyExtractor={(item) => item.accessId.toString()}
             renderItem = {({item}) => {
                 return(
-                  <TouchableOpacity onPress= {() => this._goTo('conversation')}>
+                  <TouchableOpacity onPress= {() => this._goTo('conversation', {accessId: item.accessId, username: this.state.username})}>
                       <ConversationItem conversation={item.accessId}/>
                   </TouchableOpacity>
                 );

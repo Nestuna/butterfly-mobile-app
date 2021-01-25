@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row'
     },
     text_id : {
-      fontSize : 17,
+      fontSize : 16,
       fontWeight : "bold"
     },
     text_message : {
