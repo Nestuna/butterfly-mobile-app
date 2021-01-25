@@ -1,6 +1,9 @@
-const url = 'http://192.168.1.6:8000/api/'
+import { IP } from './IP.json'
+
+const url = IP + '/api/'
 
 export async function getConversation(access_id) {
+   console.log(url)
    const response = await fetch(url + `conversation/?access_id=${access_id}`, {
       method: 'GET',
       headers:{

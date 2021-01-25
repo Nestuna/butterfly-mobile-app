@@ -15,17 +15,19 @@ export default class JoinConversation extends Component {
         }
     }
 
-
     _goTo = (destination, params) => {
-      SecureStore.getItemAsync('login').then(
-        (pseudo) => {
-          putConversation(this.inputs)
-          this.props.navigation.navigate(destination, params)
-        }
-      )
-
+        this.props.navigation.navigate(destination, params)
     }
 
+    _joinConversation = () => {
+        SecureStore.getItemAsync('login').then(
+            (pseudo) => {
+              putConversation(this.inputs).then(
+                this._goTo('conversation', {accessId: this.inputs.accessId, username: pseudo})
+              )
+            }
+          )
+    }
     render() {
         return (
             <View style={theme.main_container}>
@@ -41,7 +43,7 @@ export default class JoinConversation extends Component {
                 />
                 <TouchableOpacity
                     style={theme.button}
-                    onPress= {() => this._goTo('conversation', {accessId:this.inputs.accessId})}
+                    onPress= {() => this._joinConversation()}
                 >
                     <Text h4 style={[theme.text]}>
                         Rejoindre

@@ -21,13 +21,19 @@ export default class Home extends Component{
           username : '',
           conversations: []
       }
+      this.timer = undefined
   }
 
   componentDidMount() {
       this._getConversation().then(console.log(this.state.conversations));
-      setTimeout(() => {
-          this.componentDidMount();
+      this.timer = setTimeout(() => {
+        this.componentDidMount();
       }, 1000);
+  }
+
+
+  componentWillUnmount() {
+    clearTimeout(this.timer)
   }
 
   _getConversation = async () => {

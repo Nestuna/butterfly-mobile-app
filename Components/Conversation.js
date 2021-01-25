@@ -25,6 +25,7 @@ export default class Conversation extends Component {
             text : '',
             accessId: ''
         }
+        this.timer = undefined;
 
     }
 
@@ -34,12 +35,16 @@ export default class Conversation extends Component {
                   this.messageToSend.accessId = this.props.accessId
                   this.messageToSend.username = this.state.username
 
-                  setTimeout(() => {
+                  this.timer = setTimeout(() => {
                       this.componentDidMount();
-                  }, 1000);
-                  
+                  }, 2000);
+
       console.log(this.state);
       })
+    }
+
+    componentWillUnmount() {
+        clearTimeout(this.timer)
     }
 
     _goTo = (destination, params) => {

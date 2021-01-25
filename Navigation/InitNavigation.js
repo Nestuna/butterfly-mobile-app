@@ -36,8 +36,9 @@ function ConversationScreen({route, navigation}) {
 	const { accessId, username } = route.params
 	return (
 		<Conversation navigation = {navigation}
-		 							accessId = {accessId}
-									username = {username}/>
+									 accessId = {accessId}
+									username = {username}
+									 />
 	);
 }
 
@@ -47,9 +48,17 @@ function CreateConversationScreen({navigation}) {
 	);
 }
 
-function HomeScreen({navigation}) {
+function HomeScreen({route, navigation}) {
+	let refresh = false;
+	React.useEffect(() => {
+		const unsubscribe = navigation.addListener('focus', () => {
+			refresh = true;
+		})
+		return unsubscribe
+	}, [navigation])
+
 	return (
-		<Home navigation = {navigation} />
+		<Home navigation = {navigation} refresh={refresh} />
 	);
 }
 
