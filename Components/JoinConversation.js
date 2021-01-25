@@ -4,7 +4,7 @@ import { Text } from 'react-native-elements'
 import * as SecureStore from 'expo-secure-store';
 
 import { theme } from '../Style/Theme'
-import { setConversation } from '../API/ApiData'
+import { setConversation, putConversation } from '../API/ApiData'
 
 export default class JoinConversation extends Component {
     constructor(props) {
@@ -15,10 +15,11 @@ export default class JoinConversation extends Component {
         }
     }
 
+
     _goTo = (destination, params) => {
       SecureStore.getItemAsync('login').then(
         (pseudo) => {
-          putConversation({pseudo:pseudo})
+          putConversation(this.inputs)
         }
       )
         this.props.navigation.navigate(destination, params)

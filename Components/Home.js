@@ -8,7 +8,7 @@ import { theme } from '../Style/Theme'
 import ConversationItem from './ConversationItem.js'
 import conversation from '../Helpers/ConversationData.js'
 import * as SecureStore from 'expo-secure-store';
-import { getConversationList} from '../API/ApiData'
+import { getConversationList } from '../API/ApiData'
 
 export default class Home extends Component{
   constructor(props) {
@@ -30,6 +30,7 @@ export default class Home extends Component{
       SecureStore.getItemAsync('login')
         .then( (pseudo) => {
           this.state.conversations = getConversationList(pseudo)
+          console.log(this.states.conversations)
       }
     )
   }

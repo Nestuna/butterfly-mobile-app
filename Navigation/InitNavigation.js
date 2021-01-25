@@ -32,9 +32,11 @@ function ForgotLoginScreen({navigation}) {
 	);
 }
 
-function ConversationScreen({navigation}) {
+function ConversationScreen({route, navigation}) {
+	const { accessId } = route.params
 	return (
-		<Conversation navigation = {navigation} />
+		<Conversation navigation = {navigation}
+		 							accessId = {accessId}	/>
 	);
 }
 

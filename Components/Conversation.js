@@ -13,30 +13,33 @@ export default class Conversation extends Component {
         super(props);
         this.state = {
             messages: [],
-            access_id: ''
+            accessId: ''
         }
 
         this.messageToSend = {
             username : '',
             text : '',
-            access_id: this.state.access_id
+            accessId: ''
         }
 
     }
 
     componentDidMount() {
-        this._getMessages();
+        this.setState({accessId: this.props.accessId},
+          () => {this._getMessages();
+                this.messageToSend.accessId = this.props.accessId;
+                console.log(this.state);
+              })
     }
 
     _getMessages = () => {
-        getMessagesFromApi(this.state.access_id).then((data) => {
+        getMessagesFromApi(this.state.accessId).then((data) => {
             console.log(data);
             this.setState({messages: data});
         });
     }
     _sendMessage = () => {
-        postMessageToApi(this.messageToSend);
-        this._getMessages();
+        postMessageToApi(this.messageToSend).then(this._getMessages());
     }
 
 
