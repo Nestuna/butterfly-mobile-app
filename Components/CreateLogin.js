@@ -1,23 +1,37 @@
 // ./Components/CreateLogin
 
 import React, { Component } from 'react'
+<<<<<<< HEAD
 import { Keyboard, ScrollView } from 'react-native';
 import { 
     View, StyleSheet, TextInput, Dimensions, TouchableOpacity, Alert
+=======
+import { ScrollView } from 'react-native';
+import { 
+    View, StyleSheet, TextInput, Dimensions, TouchableOpacity, Alert 
+>>>>>>> vincent-branch
 } from 'react-native'
 import { Text } from 'react-native-elements'
 import { theme } from '../Style/Theme'
 import * as SecureStore from 'expo-secure-store';
 import { KeyboardAvoidingView } from 'react-native';
+<<<<<<< HEAD
 import { addUser } from '../API/ApiData'
+=======
+>>>>>>> vincent-branch
 
 export default class CreateLogin extends Component {
     constructor(props) {
         super(props);
         this.credentials = {
+<<<<<<< HEAD
             username: '',
             password: '',
             email: ''
+=======
+            'login': '',
+            'password': ''
+>>>>>>> vincent-branch
         }
         this.state = {
             info_message: '',
@@ -30,6 +44,7 @@ export default class CreateLogin extends Component {
     }
 
 
+<<<<<<< HEAD
         _createAccount () {
             Keyboard.dismiss();
             if (this.credentials.username === '' || this.credentials.password === '') {
@@ -48,11 +63,24 @@ export default class CreateLogin extends Component {
                 })
             }
 
+=======
+    _createAccount = () => {
+        if (SecureStore.getItemAsync('login', this.credentials.login)) Alert.alert("L'ancien compte va être supprimé")
+        this._storeCredentials();
+        Alert.alert("Compte crée avec succès. Bienvenue sur Butterfly !");
+        setTimeout(() => {
+            this._goTo('home');
+        }, 3000);
+>>>>>>> vincent-branch
     }
 
     _storeCredentials = () => {
         if (SecureStore.isAvailableAsync()) {
+<<<<<<< HEAD
             SecureStore.setItemAsync('login', this.credentials.username)
+=======
+            SecureStore.setItemAsync('login', this.credentials.login)
+>>>>>>> vincent-branch
             SecureStore.setItemAsync('password', this.credentials.password)
         }
     } 
@@ -64,11 +92,19 @@ export default class CreateLogin extends Component {
                     <TextInput 
                             style={theme.text_input}
                             placeholder={'Login'}
+<<<<<<< HEAD
                             onChangeText={(text) => {this.credentials.username = text; this.credentials.email = text + '@mail.com'}}
                         >
 
                     </TextInput> 
                     <TextInput
+=======
+                            onChangeText={(text) => {this.credentials.login = text;}}
+                        >
+
+                    </TextInput> 
+                    <TextInput 
+>>>>>>> vincent-branch
                         secureTextEntry={true}
                         style={theme.text_input}
                         placeholder={'Mot de passe'}    

@@ -15,20 +15,24 @@ export default class Conversation extends Component {
             conversationIsAlive: true,
             admin : undefined,
             messages: [],
-            access_id: '02ddfdb22984498d838d645f07ce4e9f',
+            access_id: '',
             onDelete: false
         }
+
         this.messageToSend = {
-            username : 'Lala',
+            username : '',
             text : '',
-            access_id: this.state.access_id
+            accessId: ''
         }
-        this.isAdmin = false
 
     }
 
     componentDidMount() {
-        this._getMessages();
+      this.setState({accessId: this.props.accessId},
+          () => {this._getMessages();
+                  this.messageToSend.accessId = this.props.accessId;
+      console.log(this.state);
+      })
     }
 
     _goTo = (destination, params) => {
@@ -45,8 +49,7 @@ export default class Conversation extends Component {
         });
     }
     _sendMessage = () => {
-        postMessageToApi(this.messageToSend);
-        this._getMessages();
+        postMessageToApi(this.messageToSend).then(this._getMessages());
     }
 
     _displayDeleteButton = () => {
@@ -116,7 +119,7 @@ export default class Conversation extends Component {
                     return(
                       <Message
                         isUser={this.messageToSend.username === item.username}
-                        username={item.username} 
+                        username={item.username}
                         text={item.text} />
                     );
                   }
@@ -140,9 +143,9 @@ export default class Conversation extends Component {
                     style={styles.chat_send}
                     behavior={Platform.OS === "ios" ? "padding" : "height"}
                 >
-                    <TextInput style= {styles.message_input} 
-                        multiline={true} 
-                        onChangeText={text => this.messageToSend.text = text} 
+                    <TextInput style= {styles.message_input}
+                        multiline={true}
+                        onChangeText={text => this.messageToSend.text = text}
                     />
                     <TouchableOpacity style={styles.send_button} onPress= {() => this._sendMessage()}>
                         <Text style={theme.text}>Envoyer</Text>
@@ -153,8 +156,8 @@ export default class Conversation extends Component {
     }
 }
 
-const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 const styles= StyleSheet.create({
     header: {
         paddingTop: '5%',

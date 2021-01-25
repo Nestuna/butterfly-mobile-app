@@ -2,24 +2,50 @@
 
 import React, { Component } from 'react'
 import { ScrollView } from 'react-native';
-import { View, StyleSheet, TextInput, Dimensions, TouchableOpacity, FlatList} from 'react-native'
+import { View, StyleSheet, TextInput, Dimensions, TouchableOpacity, FlatList, KeyboardAvoidingView} from 'react-native'
 import { Text } from 'react-native-elements'
 import { theme } from '../Style/Theme'
 import ConversationItem from './ConversationItem.js'
 import conversation from '../Helpers/ConversationData.js'
+import * as SecureStore from 'expo-secure-store';
+import { getConversationList } from '../API/ApiData'
 
 export default class Home extends Component{
+  constructor(props) {
+      super(props);
+      this.user = {
+        username : ""
+      }
+
+      this.state = {
+          conversations: []
+      }
+  }
+
+  componentDidMount() {
+      this._getConversation();
+  }
+
+  _getConversation = () => {
+      SecureStore.getItemAsync('login')
+        .then( (pseudo) => {
+          this.state.conversations = getConversationList(pseudo)
+          console.log(this.states.conversations)
+      }
+    )
+  }
+
   _goTo = (destination, params) => {
       this.props.navigation.navigate(destination, params)
   }
 
-    render() {
+    render(){
       return(
       <View style={theme.main_container}>
         <View style={styles.body_container}>
           <FlatList
-            data={conversation}
-            keyExtractor={(item) => item.id.toString()}
+            data={this.state.conversations}
+            keyExtractor={(item) => item.toString()}
             renderItem = {({item}) => {
                 return(
                   <TouchableOpacity onPress= {() => this._goTo('conversation')}>
@@ -56,20 +82,19 @@ const styles = StyleSheet.create({
     },
     body_container: {
         flex: 11,
-        paddingHorizontal : "3%"
+        padding : "3%"
         // borderColor: '#000',
         // borderWidth: 3
     },
     bottom_container: {
-      flex: 1,
       flexDirection: "row",
-      margin: '1%',
+      bottom : 10
     },
     button : {
       minWidth: windowWidth * 0.3,
       backgroundColor: '#737580',
       margin: '1%',
-      padding: '1%',
+      padding: '3%',
       justifyContent: 'center',
       alignItems: 'center',
       borderRadius: 3

@@ -27,17 +27,28 @@ export default class Message extends Component {
 }
 
 const windowWidth = Dimensions.get('window').width;
+<<<<<<< HEAD
 const windowHeight = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
     message_container: {
         flexDirection: 'row',
+=======
+const styles = StyleSheet.create({
+    message_container: {
+        flexDirection: 'row',
+        
+>>>>>>> vincent-branch
     },
     message_box: {
         flex: 0.7,
         margin: '3%',
         padding: '3%',
+<<<<<<< HEAD
         borderRadius: 15
+=======
+        borderRadius: 15,
+>>>>>>> vincent-branch
     }
     ,
     message_text: {

@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
+<<<<<<< HEAD
 import { View, TextInput, TouchableOpacity, Alert, Keyboard , Clipboard} from 'react-native'
 // import Clipboard from '@react-native-community/clipboard';
+=======
+import { View, TextInput, TouchableOpacity, Alert, Keyboard } from 'react-native'
+>>>>>>> vincent-branch
 import { Text } from 'react-native-elements'
 import * as SecureStore from 'expo-secure-store';
 
@@ -11,14 +15,19 @@ export default class CreateConversation extends Component {
     constructor(props) {
         super(props);
         this.inputs = {
+<<<<<<< HEAD
             pseudo: '',
             lifespan: ''        
+=======
+            lifespan: ''
+>>>>>>> vincent-branch
         }
         this.state = {
             conversationAccessId: undefined
         }
     }
 
+<<<<<<< HEAD
 
     _copyToClipboard = (text) => {
 
@@ -34,6 +43,24 @@ export default class CreateConversation extends Component {
                     console.log(this.state.conversationAccessId);
                 }
             );
+=======
+    _createConversation = () => {
+        Keyboard.dismiss();
+        SecureStore.getItemAsync('login')
+          .then( (pseudo) => {
+            setConversation({...this.inputs, pseudo:pseudo})
+              .then(
+                  (accessId) =>  {
+                      this.setState({conversationAccessId: accessId})
+                      if (SecureStore.isAvailableAsync()) {
+                          const conversationKey = 'conversation_' + accessId;
+                          SecureStore.setItemAsync(conversationKey, pseudo);
+                          }
+                        }
+                      );
+        }
+      )
+>>>>>>> vincent-branch
     }
 
     _displayconversationAccessId = () => {
@@ -41,11 +68,16 @@ export default class CreateConversation extends Component {
             return (
                 <View style={{padding: '5%'}}>
                     <Text style={[theme.text, {textAlign: 'center'}]}>
+<<<<<<< HEAD
                         <Text h4 style={theme.text} >
                             Access ID: {'\n'}
                             <Text>
                                 {this.state.conversationAccessId}{'\n\n'}
                             </Text>
+=======
+                        <Text h4 style={theme.text}>Access ID: {'\n'}
+                        {this.state.conversationAccessId}{'\n\n'}
+>>>>>>> vincent-branch
                         </Text>
                         <Text h5 style={theme.text}>
                             L'access ID est ce qui permettra à vos interlocuteur de rejoindre la conversation.
@@ -66,7 +98,11 @@ export default class CreateConversation extends Component {
                         keyboardType= {'numeric'}
                         onChangeText={(text) => {this.inputs.lifespan = text;}}
                 />
+<<<<<<< HEAD
                 <TouchableOpacity 
+=======
+                <TouchableOpacity
+>>>>>>> vincent-branch
                     style={theme.button}
                     onPress= {() => this._createConversation()}
                 >

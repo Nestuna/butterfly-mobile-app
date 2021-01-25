@@ -4,9 +4,9 @@ import { Text } from 'react-native-elements'
 import * as SecureStore from 'expo-secure-store';
 
 import { theme } from '../Style/Theme'
-import { setConversation } from '../API/ApiData'
+import { setConversation, putConversation } from '../API/ApiData'
 
-export default class CreateConversation extends Component {
+export default class JoinConversation extends Component {
     constructor(props) {
         super(props);
         this.inputs = {
@@ -15,7 +15,13 @@ export default class CreateConversation extends Component {
         }
     }
 
+
     _goTo = (destination, params) => {
+      SecureStore.getItemAsync('login').then(
+        (pseudo) => {
+          putConversation(this.inputs)
+        }
+      )
         this.props.navigation.navigate(destination, params)
     }
 
@@ -34,7 +40,7 @@ export default class CreateConversation extends Component {
                 />
                 <TouchableOpacity
                     style={theme.button}
-                    onPress= {() => this._goTo('conversation')}
+                    onPress= {() => this._goTo('conversation', {accessId:this.inputs.accessId})}
                 >
                     <Text h4 style={[theme.text]}>
                         Rejoindre

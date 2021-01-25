@@ -1,22 +1,19 @@
-const url = 'http://172.18.0.3:8000/api/'
+const url = 'http://192.168.1.6:8000/api/'
 
-export async function addUser(form) {
-   const response = await fetch(url + "login/", {
-      method: 'POST',
+export async function getConversation(access_id) {
+   const response = await fetch(url + `conversation/?access_id=${access_id}`, {
+      method: 'GET',
       headers:{
          'Accept': 'application/json',
          'Content-Type': 'application/json',
       },
-      body: JSON.stringify(form)
    })
-   if (response.status >= 400) {
-      return false;
-   }
-   return true;
+   const json = await response.json();
+   return json;
 }
 
-export async function getConversation(access_id) {
-   const response = await fetch(url + `conversation/?access_id=${access_id}`, {
+export async function getConversationList(username) {
+   const response = await fetch(url + `conversationuser/?username=${username}`, {
       method: 'GET',
       headers:{
          'Accept': 'application/json',
@@ -54,6 +51,19 @@ export async function deleteConversation(access_id) {
 }
 
 
+export async function putConversation(form) {
+    const response = await fetch(url + "conversation/", {
+       method: 'PUT',
+       headers:{
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+       },
+       body: JSON.stringify(form)
+    })
+    const text = await response.text();
+    return text;
+}
+
 export async function getMessagesFromApi(access_id) {
    const response = await fetch(url + "conversation/message/?access_id=" + access_id, {
       method: 'GET',
@@ -81,4 +91,3 @@ export async function postMessageToApi(form) {
    const text = await response.text();
    return text;
 }
-
