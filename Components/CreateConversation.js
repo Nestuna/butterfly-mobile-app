@@ -19,9 +19,10 @@ export default class CreateConversation extends Component {
         }
     }
 
-    componentDidMount() {
-
+    _goTo = (destination, params) => {
+        this.props.navigation.navigate(destination, params)
     }
+
 
     _copyToClipboard = (text) => {
         Alert.alert('ID copié')
@@ -36,8 +37,10 @@ export default class CreateConversation extends Component {
                 .then((accessId) =>  {
                         this.setState({conversationAccessId: accessId})
                         Clipboard.setString(accessId);
-                        console.log(this.state.conversationAccessId);
-                    }
+                    //     setTimeout(() => {
+                    //         this._goTo('home', {'refresh': true});
+                    //     }, 3000);
+                    // }
                 );
           }
         )

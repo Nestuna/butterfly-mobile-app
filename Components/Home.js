@@ -45,11 +45,11 @@ export default class Home extends Component{
         <View style={styles.body_container}>
           <FlatList
             data={this.state.conversations}
-            keyExtractor={(item) => item.toString()}
+            keyExtractor={(item) => item.accessId.toString()}
             renderItem = {({item}) => {
                 return(
                   <TouchableOpacity onPress= {() => this._goTo('conversation')}>
-                      <ConversationItem conversation={item}/>
+                      <ConversationItem conversation={item.accessId}/>
                   </TouchableOpacity>
                 );
               }

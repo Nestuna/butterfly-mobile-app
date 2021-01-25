@@ -15,7 +15,7 @@ export default class ConversationItem extends Component {
     return (
       <View styles={styles.header_container}>
         <View style={theme.conversation}>
-          <Text style={styles.text_id}>ID : {conversation.accessId}</Text>
+          <Text style={styles.text_id}>ID : {conversation}</Text>
         </View>
       </View>
     )
